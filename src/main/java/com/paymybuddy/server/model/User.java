@@ -65,4 +65,10 @@ public class User
 	{
 		isAdmin = admin;
 	}
+
+	public String getRole()
+	{
+		return this.isAdmin ? "ADMIN" : "USER";
+	}
+
 }
