@@ -1,13 +1,17 @@
 package com.paymybuddy.server;
 
 import com.paymybuddy.server.model.Contact;
+import com.paymybuddy.server.model.ContactId;
 import com.paymybuddy.server.model.Transaction;
 import com.paymybuddy.server.model.User;
+import com.paymybuddy.server.repository.ContactRepository;
 import com.paymybuddy.server.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.util.Optional;
 
 @SpringBootApplication
 public class ServerApplication implements CommandLineRunner
@@ -47,6 +51,8 @@ public class ServerApplication implements CommandLineRunner
 //
 //		Iterable<Contact> contacts = contactService.getContacts();
 //		contacts.forEach(contact -> System.out.println(contact.getUser1().getEmail() + " is a contact of " + contact.getUser2().getEmail()));
+
+//		Optional<Contact> contact = contactRepository.findById(1);
 	}
 
 }

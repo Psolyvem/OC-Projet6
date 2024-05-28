@@ -1,6 +1,7 @@
 package com.paymybuddy.server.service;
 
 import com.paymybuddy.server.model.Contact;
+import com.paymybuddy.server.model.User;
 import com.paymybuddy.server.repository.ContactRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,11 +19,11 @@ public class ContactService implements IContactService
 		return contactRepository.findAll();
 	}
 
-	@Override
-	public Optional<Contact> getContactById(int id)
-	{
-		return contactRepository.findById(id);
-	}
+//	@Override
+//	public Optional<Contact> getContactByUser(User user)
+//	{
+//		return contactRepository.findByUser(user);
+//	}
 
 	@Override
 	public void createContact(Contact contact)

@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public interface ITransactionService
 {
-	public Iterable<Transaction> getTransactions();
+	public Iterable<Transaction> getTransactionsByUser(String email);
 
 	public Optional<Transaction> getTransactionById(int id);
 

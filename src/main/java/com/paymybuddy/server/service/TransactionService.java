@@ -5,6 +5,7 @@ import com.paymybuddy.server.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -14,9 +15,9 @@ public class TransactionService implements ITransactionService
 	TransactionRepository transactionRepository;
 
 	@Override
-	public Iterable<Transaction> getTransactions()
+	public Iterable<Transaction> getTransactionsByUser(String email)
 	{
-		return transactionRepository.findAll();
+		return transactionRepository.findByUser(email);
 	}
 
 	@Override
