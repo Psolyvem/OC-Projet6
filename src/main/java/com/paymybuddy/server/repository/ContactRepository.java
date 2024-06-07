@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ContactRepository extends CrudRepository<Contact, Integer>
 {
-	@Query(value = "SELECT * FROM contact WHERE user1_id = 8 OR user2_id = 8", nativeQuery = true)
-	public Iterable<Contact> findByCostNative(@Param("cout") Integer id);
+	@Query(value = "SELECT * FROM contact c JOIN user u ON u.id = c.user1_id JOIN user cu ON c.user2_id = cu.id WHERE u.email = :email OR cu.email = :email", nativeQuery = true)
+	public Iterable<Contact> findByUser(@Param("email") String email);
 }

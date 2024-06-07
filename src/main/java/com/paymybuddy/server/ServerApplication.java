@@ -53,6 +53,11 @@ public class ServerApplication implements CommandLineRunner
 //		contacts.forEach(contact -> System.out.println(contact.getUser1().getEmail() + " is a contact of " + contact.getUser2().getEmail()));
 
 //		Optional<Contact> contact = contactRepository.findById(1);
+
+//		Contact contact = new Contact();
+//		contact.setUser1(userService.getUserByEmail("antonin.dada@email.freu"));
+//		contact.setUser2(userService.getUserByEmail("christ-alain@gmail.com"));
+//		contactService.createContact(contact);
 	}
 
 }

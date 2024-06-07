@@ -1,6 +1,5 @@
 package com.paymybuddy.server.controller;
 
-import com.nimbusds.jose.shaded.gson.JsonObject;
 import com.paymybuddy.server.security.JwtService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

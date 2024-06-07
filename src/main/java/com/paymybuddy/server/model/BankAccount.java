@@ -8,7 +8,7 @@ import jakarta.persistence.*;
 public class BankAccount
 {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	int id;
 	String rib;

@@ -9,13 +9,13 @@ public class Contact
 {
 	@Id
 	@ManyToOne(
-			cascade = CascadeType.PERSIST,
+			cascade = CascadeType.MERGE,
 			fetch = FetchType.EAGER)
 	@JoinColumn(name = "user1_id")
 	User user1;
 	@Id
 	@ManyToOne(
-			cascade = CascadeType.PERSIST,
+			cascade = CascadeType.MERGE,
 			fetch = FetchType.EAGER)
 	@JoinColumn(name = "user2_id")
 	User user2;

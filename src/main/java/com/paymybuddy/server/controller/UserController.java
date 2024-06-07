@@ -26,4 +26,10 @@ public class UserController
 	{
 		return userService.getUserById(id);
 	}
+
+	@GetMapping(path = "/user", params = "email")
+	public User getUserByEmail(@RequestParam(name = "email") String email)
+	{
+		return userService.getUserByEmail(email);
+	}
 }

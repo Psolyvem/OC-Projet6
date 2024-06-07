@@ -9,7 +9,7 @@ import java.util.Date;
 public class Transaction
 {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	int id;
 	Date date;
@@ -17,12 +17,12 @@ public class Transaction
 	String description;
 	float fee;
 	@ManyToOne(
-			cascade = CascadeType.PERSIST,
+			cascade = CascadeType.MERGE,
 			fetch = FetchType.EAGER)
 	@JoinColumn(name = "sender_id")
 	User sender;
 	@ManyToOne(
-			cascade = CascadeType.PERSIST,
+			cascade = CascadeType.MERGE,
 			fetch = FetchType.EAGER)
 	@JoinColumn(name = "receiver_id")
 	User receiver;

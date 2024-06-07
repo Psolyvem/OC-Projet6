@@ -1,14 +1,13 @@
 package com.paymybuddy.server.controller;
 
 import com.paymybuddy.server.model.Contact;
-import com.paymybuddy.server.model.User;
+import com.paymybuddy.server.model.ContactId;
 import com.paymybuddy.server.service.IContactService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.tinylog.Logger;
 
-import java.util.Optional;
+import java.security.Principal;
 
 @RestController
 public class ContactController
@@ -16,15 +15,45 @@ public class ContactController
 	@Autowired
 	IContactService contactService;
 
-	@GetMapping("/contact")
-	public Iterable<Contact> getContacts()
+	@GetMapping(path = "/contact")
+	public Iterable<Contact> getContactByUser(Principal principal)
 	{
-		return contactService.getContacts();
+		String email = principal.getName();
+		return contactService.getContactByUser(email);
 	}
 
-//	@GetMapping(path = "/contact", params = "user")
-//	public Optional<Contact> getContactByUser(@RequestParam(name = "user") User user)
-//	{
-//		return contactService.getContactByUser(user);
-//	}
+	/**
+	 * Add a contact
+	 *
+	 * @param contactId Need a request with a JSON body containing the following entries :<br>
+	 *                    user1 : a user <br>
+	 *                    user2 : a user <br>
+	 */
+	@PostMapping(path ="/contact")
+	public void createContact(@RequestBody ContactId contactId)
+	{
+		Contact contact = contactId.toContact();
+		contactService.createContact(contact);
+		Logger.info(contactId.getUser1().getEmail() + " added " + contactId.getUser2().getEmail() + " as contact");
+	}
+
+	/**
+	 * Delete a contact
+	 *
+	 * @param contactId Need a request with a JSON body containing the following entries :<br>
+	 *                    user1 : a user <br>
+	 *                    user2 : a user <br>
+	 */
+	@DeleteMapping(path ="/contact")
+	public void deleteContact(@RequestBody ContactId contactId)
+	{
+		// Deleting the two possible combinations of users
+		Contact contact = contactId.toContact();
+		Contact contact2 = new Contact();
+		contact2.setUser1(contact.getUser2());
+		contact2.setUser2(contact.getUser1());
+		contactService.deleteContact(contact);
+		contactService.deleteContact(contact2);
+		Logger.info(contactId.getUser1().getEmail() + " deleted " + contactId.getUser2().getEmail() + " as contact");
+	}
 }

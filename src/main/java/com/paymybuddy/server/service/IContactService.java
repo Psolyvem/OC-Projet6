@@ -9,7 +9,7 @@ public interface IContactService
 {
 	public Iterable<Contact> getContacts();
 
-	//public Optional<Contact> getContactByUser(User user);
+	public Iterable<Contact> getContactByUser(String email);
 
 	public void createContact(Contact contact);
 
