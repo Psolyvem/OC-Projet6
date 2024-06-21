@@ -4,7 +4,6 @@ import com.paymybuddy.server.model.Transaction;
 import com.paymybuddy.server.service.ITransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.tinylog.Logger;
 
 import java.security.Principal;
 import java.util.Optional;
@@ -42,7 +41,6 @@ public class TransactionController
 	@PostMapping(path = "/transaction")
 	public void createTransaction(@RequestBody Transaction transaction)
 	{
-		Logger.info("Transaction between " + transaction.getSender().getEmail() + " and " + transaction.getReceiver().getEmail() + " of " + transaction.getAmount());
 		transactionService.createTransaction(transaction);
 	}
 
