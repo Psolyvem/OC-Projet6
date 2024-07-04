@@ -4,10 +4,10 @@ import com.paymybuddy.server.model.Transaction;
 import com.paymybuddy.server.model.User;
 import com.paymybuddy.server.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.tinylog.Logger;
 
-import java.text.DecimalFormat;
 import java.util.Optional;
 
 @Service
@@ -21,7 +21,14 @@ public class TransactionService implements ITransactionService
 	@Override
 	public Iterable<Transaction> getTransactionsByUser(String email)
 	{
-		return transactionRepository.findByUser(email);
+		if (userService.getUserByEmail(email).isAdmin())
+		{
+			return transactionRepository.findByOrderByIdDesc();
+		}
+		else
+		{
+			return transactionRepository.findByUser(email);
+		}
 	}
 
 	@Override
@@ -38,10 +45,14 @@ public class TransactionService implements ITransactionService
 			transaction.setAmount(Math.round(transaction.getAmount() * 100.d) / 100.d);
 			User sender = transaction.getSender();
 			User receiver = transaction.getReceiver();
+			User admin = userService.getUserByEmail("admin@paymybuddy.fr");
+			double fee = Math.round((transaction.getAmount() / 100.0 * transaction.getFee()) * 100.d) / 100.d;
 			sender.setSolde(sender.getSolde() - transaction.getAmount());
-			receiver.setSolde(receiver.getSolde() + transaction.getAmount() - (transaction.getAmount() * (transaction.getFee()) / 100));
+			receiver.setSolde(receiver.getSolde() + transaction.getAmount() - fee);
+			admin.setSolde(admin.getSolde() + fee);
 			userService.updateUser(sender);
 			userService.updateUser(receiver);
+			userService.updateUser(admin);
 			transactionRepository.save(transaction);
 			Logger.info("Transaction between " + transaction.getSender().getEmail() + " and " + transaction.getReceiver().getEmail() + " of " + transaction.getAmount());
 		}

@@ -3,9 +3,8 @@ package com.paymybuddy.server.controller;
 import com.paymybuddy.server.model.User;
 import com.paymybuddy.server.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.tinylog.Logger;
 
 import java.util.Optional;
 
@@ -31,5 +30,11 @@ public class UserController
 	public User getUserByEmail(@RequestParam(name = "email") String email)
 	{
 		return userService.getUserByEmail(email);
+	}
+
+	@PatchMapping(path = "/user")
+	public void patchUser(@RequestBody User user)
+	{
+		userService.updateUser(user);
 	}
 }
