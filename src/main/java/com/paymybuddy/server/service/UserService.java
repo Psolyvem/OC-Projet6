@@ -5,6 +5,7 @@ import com.paymybuddy.server.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.tinylog.Logger;
 
 import java.util.Optional;
 
@@ -13,6 +14,16 @@ public class UserService implements IUserService
 {
 	@Autowired
 	UserRepository userRepository;
+
+	public UserService()
+	{
+
+	}
+
+	public UserService(UserRepository userRepository)
+	{
+		this.userRepository = userRepository;
+	}
 
 	@Override
 	public Iterable<User> getUsers()
@@ -30,15 +41,12 @@ public class UserService implements IUserService
 	public User getUserByEmail(String email)
 	{
 		User user = userRepository.findByEmail(email);
-		if(user != null)
+		if(user == null)
 		{
-			return userRepository.findByEmail(email);
-		}
-		else
-		{
-			throw new UsernameNotFoundException("Username not found");
+			Logger.info("Username \"" + email + "\" not found");
 		}
 
+		return user;
 	}
 
 	@Override

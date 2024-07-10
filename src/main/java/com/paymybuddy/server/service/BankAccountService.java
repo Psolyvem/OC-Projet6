@@ -13,6 +13,16 @@ public class BankAccountService implements IBankAccountService
 	@Autowired
 	BankAccountRepository bankAccountRepository;
 
+	public BankAccountService()
+	{
+
+	}
+
+	public BankAccountService(BankAccountRepository bankAccountRepository)
+	{
+		this.bankAccountRepository = bankAccountRepository;
+	}
+
 	@Override
 	public Iterable<BankAccount> getBankAccounts()
 	{

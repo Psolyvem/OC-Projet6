@@ -15,6 +15,16 @@ public class ContactController
 	@Autowired
 	IContactService contactService;
 
+	public ContactController()
+	{
+
+	}
+
+	public ContactController(IContactService contactService)
+	{
+		this.contactService = contactService;
+	}
+
 	@GetMapping(path = "/contact")
 	public Iterable<Contact> getContactByUser(Principal principal)
 	{
