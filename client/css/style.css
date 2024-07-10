@@ -1,0 +1,58 @@
+body {
+	background-color: #f8f9fa;
+}
+
+.login-container {
+	max-width: 400px;
+	margin: 0 auto;
+	margin-top: 50px;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+	background-color: #fff;
+}
+
+.breadcrumb-item.active {
+	color: #000;
+}
+
+.dropdown-menu {
+	min-width: 200px;
+}
+
+.dropdown-menu a {
+	color: #000;
+}
+
+.balance-box {
+	border: 1px solid #ccc;
+	padding: 5px 10px;
+	border-radius: 5px;
+	background-color: #f8f9fa;
+	font-size: 1rem;
+}
+
+.amount-input {
+	width: 100px;
+	text-align: center;
+}
+
+.title {
+	background: rgb(97, 185, 90);
+	background: linear-gradient(90deg, rgba(97, 185, 90, 1) 0%, rgba(139, 195, 76, 1) 35%);
+}
+
+.card-links .btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 15px;
+	height: 100px;
+	font-size: 1.5rem;
+	border-radius: 10px;
+}
+
+.card-links i {
+	margin-right: 10px;
+	font-size: 2rem;
+}
