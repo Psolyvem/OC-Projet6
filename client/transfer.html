@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title class="bg-success.bg-gradient">Pay my Buddy</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="./js/script.js"></script>
+</head>
+
+<body onload="loadTransfer()">
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button type="button" class="btn title text-white font-weight-bold" href="./home.html">Pay my Buddy</button>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="./home.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./transfer.html">Transfer</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./profile.html">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./contact.html">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick="deleteToken()">Log off</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb and Balance -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb align-items-center">
+            <li class="breadcrumb-item"><a href="./home.html">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Transfer</li>
+            <div id="appBalance" class="balance-box ml-auto" hidden>
+				Money generated : 15648.54€
+			</div>
+            <div id="balance" class="balance-box ml-auto">
+            </div>
+        </ol>
+    </nav>
+
+    <!-- Send Money Section -->
+    <div class="container mt-4">
+        <div class="card">
+            <div class="card-header d-flex align-items-center">
+                <h5 class="mb-0">Send Money</h5>
+                <a type="button" class="btn btn-primary btn-sm ml-auto col-md-2" href="./contact.html">Add Connection</a>
+            </div>
+            <div id="sendMoney" class="card-body">
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <select id="contact" class="form-control">
+                            <option value="" selected hidden>Select a Connection</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <input type="number" id="amount" class="form-control amount-input" value="0">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <input type="text" id="description" class="form-control text-input" placeholder="Description">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <button type="button" class="btn btn-success btn-block" onclick="pay(document.getElementById('contact').value, document.getElementById('amount').value, document.getElementById('description').value)">Pay</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- My Transactions Section -->
+    <div class="container mt-4">
+        <div class="card">
+            <h5 class="card-header">My Transactions</h5>
+            <div class="card-body">
+                <table class="table table-striped table-bordered table-hover text-center">
+                    <thead class="bg-success text-white">
+                        <tr id="transferHeader">
+                            <th scope="col">Connections</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody id="transfer">
+                        <!-- Transactions will be dynamically inserted here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="container mt-4">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li id="pages">
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
