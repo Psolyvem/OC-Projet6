@@ -2,6 +2,7 @@ package com.paymybuddy.server.controller;
 
 import com.paymybuddy.server.model.Transaction;
 import com.paymybuddy.server.service.ITransactionService;
+import com.paymybuddy.server.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +15,15 @@ public class TransactionController
 	@Autowired
 	ITransactionService transactionService;
 
+	public TransactionController()
+	{
+
+	}
+
+	public TransactionController(TransactionService transactionService)
+	{
+		this.transactionService = transactionService;
+	}
 	@GetMapping(path = "/transaction")
 	public Iterable<Transaction> getTransactionsbyUser(Principal principal)
 	{

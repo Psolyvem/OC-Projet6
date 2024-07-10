@@ -13,6 +13,16 @@ public class BankOperationService implements IBankOperationService
 	@Autowired
 	BankOperationRepository bankOperationRepository;
 
+	public BankOperationService()
+	{
+
+	}
+
+	public BankOperationService(BankOperationRepository bankOperationRepository)
+	{
+		this.bankOperationRepository = bankOperationRepository;
+	}
+
 	@Override
 	public Iterable<BankOperation> getBankOperations()
 	{

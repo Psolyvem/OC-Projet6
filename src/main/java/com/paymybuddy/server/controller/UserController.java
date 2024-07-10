@@ -4,7 +4,6 @@ import com.paymybuddy.server.model.User;
 import com.paymybuddy.server.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.tinylog.Logger;
 
 import java.util.Optional;
 
@@ -13,6 +12,16 @@ public class UserController
 {
 	@Autowired
 	IUserService userService;
+
+	public UserController()
+	{
+
+	}
+
+	public UserController(IUserService userService)
+	{
+		this.userService = userService;
+	}
 
 	@GetMapping("/user")
 	public Iterable<User> getUsers()

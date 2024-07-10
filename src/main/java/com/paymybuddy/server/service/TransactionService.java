@@ -4,7 +4,6 @@ import com.paymybuddy.server.model.Transaction;
 import com.paymybuddy.server.model.User;
 import com.paymybuddy.server.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.tinylog.Logger;
 
@@ -17,6 +16,16 @@ public class TransactionService implements ITransactionService
 	TransactionRepository transactionRepository;
 	@Autowired
 	IUserService userService;
+
+	public TransactionService()
+	{
+	}
+
+	public TransactionService(TransactionRepository transactionRepository, IUserService userService)
+	{
+		this.transactionRepository = transactionRepository;
+		this.userService = userService;
+	}
 
 	@Override
 	public Iterable<Transaction> getTransactionsByUser(String email)
