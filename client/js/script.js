@@ -1,5 +1,7 @@
 //-----------------------------------------------------------GENERAL----------------------------------------------------------------
 
+const APIURL = "http://localhost:9010";
+
 // Called on every page, redirect the user to the login page if they are not logged in
 function redirect() {
 	if (sessionStorage.getItem("token") != null) {
@@ -56,7 +58,7 @@ async function login() {
 		username: document.getElementById("email").value,
 		password: document.getElementById("password").value
 	};
-	const response = await fetch("http://localhost:9010/login",
+	const response = await fetch(APIURL + "/login",
 		{
 			method: "POST",
 			headers:
@@ -76,7 +78,7 @@ async function login() {
 
 // Main function for getting the list of transaction from the API
 async function getTransfer() {
-	let response = await fetch('http://localhost:9010/transaction', {
+	let response = await fetch(APIURL + "/transaction", {
 		method: 'GET',
 		headers: {
 			'Authorization': 'Bearer ' + sessionStorage.getItem("token"),
@@ -192,7 +194,7 @@ async function pay(targetEmail, amount, description) {
 
 //Secondary function to execute the request of a transaction
 async function postTransation(transaction) {
-	let response = await fetch('http://localhost:9010/transaction', {
+	let response = await fetch(APIURL + "/transaction", {
 		method: 'POST',
 		headers: {
 			'Authorization': 'Bearer ' + sessionStorage.getItem("token"),
@@ -207,7 +209,7 @@ async function reloadAccount(amount)
 {
 	let user = await getUser(sessionStorage.getItem("email"));
 	user.solde = +user.solde + +amount;
-	let response = await fetch('http://localhost:9010/user', {
+	let response = await fetch(APIURL + "/user", {
 		method: 'PATCH',
 		headers: {
 			'Authorization': 'Bearer ' + sessionStorage.getItem("token"),
@@ -233,7 +235,7 @@ async function displayProfile() {
 
 // Main function for getting the list of contacts from the API for the page contact
 async function getContact() {
-	let response = await fetch('http://localhost:9010/contact', {
+	let response = await fetch(APIURL + "/contact", {
 		method: 'GET',
 		headers: {
 			'Authorization': 'Bearer ' + sessionStorage.getItem("token"),
@@ -297,7 +299,7 @@ async function addContact(userEmail) {
 
 // Secondary function used to post the user once the data is gathered
 async function postContact(users) {
-	await fetch('http://localhost:9010/contact', {
+	await fetch(APIURL + "/contact", {
 		method: 'POST',
 		headers: {
 			'Authorization': 'Bearer ' + sessionStorage.getItem("token"),
@@ -331,7 +333,7 @@ async function removeContact(userEmail) {
 
 // Secondary function used to post the user once the data is gathered
 async function deleteContact(users) {
-	await fetch('http://localhost:9010/contact', {
+	await fetch(APIURL + "/contact", {
 		method: 'DELETE',
 		headers: {
 			'Authorization': 'Bearer ' + sessionStorage.getItem("token"),
@@ -357,7 +359,7 @@ async function deleteContact(users) {
 //-----------------------------------------------------------DIVERS----------------------------------------------------------------
 // Get the balance of the user
 async function getBalance() {
-	let response = await fetch('http://localhost:9010/user?email=' + sessionStorage.getItem("email"), {
+	let response = await fetch(APIURL + "/user?email=" + sessionStorage.getItem("email"), {
 		method: 'GET',
 		headers: {
 			'Authorization': 'Bearer ' + sessionStorage.getItem("token"),
@@ -377,7 +379,7 @@ async function getBalance() {
 
 // Get the balance of the user for the Home page
 async function getHomeBalance() {
-	let response = await fetch('http://localhost:9010/user?email=' + sessionStorage.getItem("email"), {
+	let response = await fetch(APIURL + "/user?email=" + sessionStorage.getItem("email"), {
 		method: 'GET',
 		headers: {
 			'Authorization': 'Bearer ' + sessionStorage.getItem("token"),
@@ -397,7 +399,7 @@ async function getHomeBalance() {
 
 // Get an user based on an email
 async function getUser(userEmail) {
-	let response = await fetch('http://localhost:9010/user?email=' + userEmail, {
+	let response = await fetch(APIURL + "/user?email=" + userEmail, {
 		method: 'GET',
 		headers: {
 			'Authorization': 'Bearer ' + sessionStorage.getItem("token"),
