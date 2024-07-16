@@ -43,6 +43,14 @@ La base de données comporte 5 tables :
 
 Il est à noter que les tables `Bank Account` et `Bank Operation`, de la même façon que leurs repositories et leurs services dans l'API ne sont actuellement pas fonctionnels. Il est tout a fait possible d'effectuer des opérations sur ces tables via les classes de l'API cependant aucun controller n'a été mis en place pour le faire depuis l'interface web étant donné que leur implémentation n'était pas requise pour cette version. Ils ont néanmoins été pris en compte dans le cadre de l'évolution de l'application.
 
+### Couverture de tests
+<p align="center">
+<img src="https://raw.githubusercontent.com/Psolyvem/OC-Projet6/master/readme/Couverture%20de%20tests.png" alt="Modèle de données physique">
+</p> 
+
+L'application dispose de tests automatisés pour une couverture de 84%. Les tests couvrents les services, les repositories et le modèle avec des tests unitaires et tests d'intégration.
+
+
 ## Installation
 
 Si vous souhaitez installer ce projet il vous faudra au préalable installer :
