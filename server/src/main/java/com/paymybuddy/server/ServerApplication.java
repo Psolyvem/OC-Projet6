@@ -1,17 +1,10 @@
 package com.paymybuddy.server;
 
-import com.paymybuddy.server.model.Contact;
-import com.paymybuddy.server.model.ContactId;
-import com.paymybuddy.server.model.Transaction;
-import com.paymybuddy.server.model.User;
-import com.paymybuddy.server.repository.ContactRepository;
 import com.paymybuddy.server.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.util.Optional;
 
 @SpringBootApplication
 public class ServerApplication implements CommandLineRunner

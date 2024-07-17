@@ -117,7 +117,7 @@ async function displayTransfer() {
 			if (transfers[i].receiver.email == sessionStorage.getItem("email")) {
 				let line = document.createElement("tr")
 				line.id = "line" + i;
-				line.innerHTML = "<td>" + transfers[i].sender.email + "</td> <td>" + transfers[i].description + "</td> <td>+ " + (transfers[i].amount - (Math.round((transfers[i].amount / 100.0 * transfers[i].fee) * 100.0) / 100.0)) + " €</td>";
+				line.innerHTML = "<td>" + transfers[i].sender.email + "</td> <td>" + transfers[i].description + "</td> <td>+ " + (Math.round((transfers[i].amount - (transfers[i].amount / 100.0 * transfers[i].fee)) * 100) / 100) + " €</td>";
 				table.appendChild(line);
 			}
 			else {
@@ -140,7 +140,7 @@ async function displayHomeTransfer() {
 		if (transfers[i].receiver.email == sessionStorage.getItem("email")) {
 			let line = document.createElement("tr")
 			line.id = "line" + i;
-			line.innerHTML = "<td>" + transfers[i].sender.email + "</td> <td>+ " + transfers[i].amount + " €</td>";
+			line.innerHTML = "<td>" + transfers[i].sender.email + "</td> <td>+ " + (Math.round((transfers[i].amount - (transfers[i].amount / 100.0 * transfers[i].fee)) * 100) / 100) + " €</td>";
 			table.appendChild(line);
 		}
 		else {
