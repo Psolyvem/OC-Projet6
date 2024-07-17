@@ -42,6 +42,12 @@ public class UserService implements IUserService
 	}
 
 	@Override
+	public User getAdmin()
+	{
+		return userRepository.findByIsAdminTrue();
+	}
+
+	@Override
 	public void createUser(User user)
 	{
 		userRepository.save(user);

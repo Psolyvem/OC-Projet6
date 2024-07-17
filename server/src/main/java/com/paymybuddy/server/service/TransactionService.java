@@ -49,7 +49,7 @@ public class TransactionService implements ITransactionService
 			transaction.setAmount(Math.round(transaction.getAmount() * 100.d) / 100.d);
 			User sender = transaction.getSender();
 			User receiver = transaction.getReceiver();
-			User admin = userService.getUserByEmail("admin@paymybuddy.fr");
+			User admin = userService.getAdmin();
 			double fee = Math.round((transaction.getAmount() / 100.0 * transaction.getFee()) * 100.d) / 100.d;
 			sender.setSolde(sender.getSolde() - transaction.getAmount());
 			receiver.setSolde(receiver.getSolde() + transaction.getAmount() - fee);
@@ -58,7 +58,7 @@ public class TransactionService implements ITransactionService
 			userService.updateUser(receiver);
 			userService.updateUser(admin);
 			transactionRepository.save(transaction);
-			Logger.info("Transaction between " + transaction.getSender().getEmail() + " and " + transaction.getReceiver().getEmail() + " of " + transaction.getAmount());
+			Logger.info("Transaction between " + transaction.getSender().getEmail() + " and " + transaction.getReceiver().getEmail() + " of " + transaction.getAmount() + "€, " + admin.getEmail() + " perceived a tax of +" + fee + "€");
 		}
 		else
 		{

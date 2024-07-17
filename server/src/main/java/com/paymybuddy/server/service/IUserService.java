@@ -12,6 +12,8 @@ public interface IUserService
 
 	public User getUserByEmail(String name);
 
+	public User getAdmin();
+
 	public void createUser(User user);
 
 	public void updateUser(User user);
