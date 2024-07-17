@@ -2,7 +2,6 @@ package com.paymybuddy.server.service;
 
 import com.paymybuddy.server.model.BankOperation;
 import com.paymybuddy.server.repository.BankOperationRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -10,13 +9,7 @@ import java.util.Optional;
 @Service
 public class BankOperationService implements IBankOperationService
 {
-	@Autowired
 	BankOperationRepository bankOperationRepository;
-
-	public BankOperationService()
-	{
-
-	}
 
 	public BankOperationService(BankOperationRepository bankOperationRepository)
 	{

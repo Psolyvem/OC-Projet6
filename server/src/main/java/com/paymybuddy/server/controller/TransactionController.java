@@ -3,7 +3,6 @@ package com.paymybuddy.server.controller;
 import com.paymybuddy.server.model.Transaction;
 import com.paymybuddy.server.service.ITransactionService;
 import com.paymybuddy.server.service.TransactionService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -12,13 +11,7 @@ import java.util.Optional;
 @RestController
 public class TransactionController
 {
-	@Autowired
 	ITransactionService transactionService;
-
-	public TransactionController()
-	{
-
-	}
 
 	public TransactionController(TransactionService transactionService)
 	{

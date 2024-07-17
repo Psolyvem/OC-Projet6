@@ -2,7 +2,6 @@ package com.paymybuddy.server.controller;
 
 import com.paymybuddy.server.model.User;
 import com.paymybuddy.server.service.IUserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -10,13 +9,7 @@ import java.util.Optional;
 @RestController
 public class UserController
 {
-	@Autowired
 	IUserService userService;
-
-	public UserController()
-	{
-
-	}
 
 	public UserController(IUserService userService)
 	{

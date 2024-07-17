@@ -53,26 +53,125 @@ function loadContact() {
 
 // Use the informations to validate the credentials of the user on the API end
 async function login() {
+	if (document.getElementById("errorMessageLogin")) {
+		document.getElementById("errorMessageLogin").remove();
+	}
 	let loginData =
 	{
 		username: document.getElementById("email").value,
 		password: document.getElementById("password").value
 	};
-	const response = await fetch(APIURL + "/login",
+
+	response = await postLogin(loginData);
+
+	if(response != 200)
+	{
+		let loginButton = document.getElementById("loginButton");
+		let errorMessageLogin = document.createElement("div");
+		errorMessageLogin.id = "errorMessageLogin";
+		errorMessageLogin.className = "alert alert-danger mt-3";
+		errorMessageLogin.innerHTML = "Wrong email or password";
+		loginButton.appendChild(errorMessageLogin);
+	}
+}
+
+// Secondary function to execute the request of login
+async function postLogin(loginData) {
+	try {
+		const response = await fetch(APIURL + "/login",
+			{
+				method: "POST",
+				headers:
+				{
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(loginData)
+			});
+
+		const data = await response.json();
+		sessionStorage.setItem("token", data.token);
+		sessionStorage.setItem("email", loginData.username);
+		window.location.href = "./home.html";
+
+		return response.status;
+	}
+	catch (error) {
+		return 401;
+	}
+
+}
+
+// Create an account from the login page
+async function createAccount(email, password) {
+	if (document.getElementById("errorMessage")) {
+		document.getElementById("errorMessage").remove();
+	}
+
+	const userAlreadyExist = await userExist(email);
+
+	if (userAlreadyExist == "true") {
+		let signUpBody = document.getElementById("signUpBody");
+		let errorMessage = document.createElement("div");
+		errorMessage.id = "errorMessage";
+		errorMessage.className = "alert alert-danger";
+		errorMessage.innerHTML = "Email already exist";
+		signUpBody.appendChild(errorMessage);
+	}
+	else if (!email.includes("@") || !email.includes(".")) {
+		let signUpBody = document.getElementById("signUpBody");
+		let errorMessage = document.createElement("div");
+		errorMessage.id = "errorMessage";
+		errorMessage.className = "alert alert-warning";
+		errorMessage.innerHTML = "Please enter a valid email";
+		signUpBody.appendChild(errorMessage);
+	}
+	else if (password.length < 8) {
+		let signUpBody = document.getElementById("signUpBody");
+		let errorMessage = document.createElement("div");
+		errorMessage.id = "errorMessage";
+		errorMessage.className = "alert alert-warning";
+		errorMessage.innerHTML = "Please enter a password of 8 characters";
+		signUpBody.appendChild(errorMessage);
+	}
+	else {
+		response = await (postAccount(email, password));
+
+		if (response = 200) {
+			let signUpBody = document.getElementById("signUpBody");
+			let errorMessage = document.createElement("div");
+			errorMessage.id = "errorMessage";
+			errorMessage.className = "alert alert-success";
+			errorMessage.innerHTML = "Account created successfully";
+			signUpBody.appendChild(errorMessage);
+		}
+		else {
+			let signUpBody = document.getElementById("signUpBody");
+			let errorMessage = document.createElement("div");
+			errorMessage.id = "errorMessage";
+			errorMessage.className = "alert alert-danger";
+			errorMessage.innerHTML = "Something went wrong";
+			signUpBody.appendChild(errorMessage);
+		}
+	}
+}
+
+// Secondary function to execute the request of the account creation
+async function postAccount(email, password) {
+	let accountData =
+	{
+		username: email,
+		password: password
+	};
+	const response = await fetch(APIURL + "/account",
 		{
 			method: "POST",
 			headers:
 			{
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify(loginData)
+			body: JSON.stringify(accountData)
 		});
-
-	const data = await response.json();
-	sessionStorage.setItem("token", data.token);
-	sessionStorage.setItem("email", loginData.username);
-	window.location.href = "./home.html";
-
+	return response.status;
 }
 //-----------------------------------------------------------TRANSFER----------------------------------------------------------------
 
@@ -192,7 +291,7 @@ async function pay(targetEmail, amount, description) {
 	}
 }
 
-//Secondary function to execute the request of a transaction
+// Secondary function to execute the request of a transaction
 async function postTransation(transaction) {
 	let response = await fetch(APIURL + "/transaction", {
 		method: 'POST',
@@ -205,8 +304,7 @@ async function postTransation(transaction) {
 	return response;
 }
 
-async function reloadAccount(amount)
-{
+async function reloadAccount(amount) {
 	let user = await getUser(sessionStorage.getItem("email"));
 	user.solde = +user.solde + +amount;
 	let response = await fetch(APIURL + "/user", {
@@ -290,11 +388,57 @@ async function displayTransferContact() {
 
 // Create a contact based on the email of the target user
 async function addContact(userEmail) {
+	if (document.getElementById("errorMessage")) {
+		document.getElementById("errorMessage").remove();
+	}
 	let user1 = await getUser(sessionStorage.getItem("email"));
-	let user2 = await getUser(userEmail);
-	let users = { user1, user2 };
-	await postContact(users);
-	location.reload();
+	let user2;
+	try {
+		user2 = await getUser(userEmail);
+	}
+	catch (error) {
+		console.log("User not found");
+	}
+	let contacts = await getContact();
+	let contactAlreadyExist = false;
+	for (let i = 0; i < contacts.length; i++) {
+		if (contacts[i].user1.email == userEmail || contacts[i].user2.email == userEmail) {
+			contactAlreadyExist = true;
+		}
+
+	}
+	console.log(contactAlreadyExist);
+	if (user2 == null) {
+		let addContact = document.getElementById("addContact");
+		let errorMessage = document.createElement("div");
+		errorMessage.id = "errorMessage";
+		errorMessage.className = "alert alert-danger";
+		errorMessage.innerHTML = "User does not exist"
+		addContact.appendChild(errorMessage);
+	}
+	else if (contactAlreadyExist) {
+		let addContact = document.getElementById("addContact");
+		let errorMessage = document.createElement("div");
+		errorMessage.id = "errorMessage";
+		errorMessage.className = "alert alert-danger";
+		errorMessage.innerHTML = "Contact already exist"
+		addContact.appendChild(errorMessage);
+	}
+	else {
+
+		let users = { user1, user2 };
+		await postContact(users);
+		let addContact = document.getElementById("addContact");
+		let errorMessage = document.createElement("div");
+		errorMessage.id = "errorMessage";
+		errorMessage.className = "alert alert-success";
+		errorMessage.innerHTML = "Contact successfully added"
+		addContact.appendChild(errorMessage);
+
+		setTimeout(() => {
+			location.reload();
+		}, 2000);
+	}
 }
 
 // Secondary function used to post the user once the data is gathered
@@ -313,12 +457,9 @@ async function postContact(users) {
 			}
 			return response.json();
 		})
-		.then(data => {
-			// Traitement des données récupérées
-			//console.log(data);
-		})
 		.catch(error => {
-			console.error('Erreur:', error);
+			console.error(error);
+			return null;
 		});
 }
 
@@ -411,4 +552,20 @@ async function getUser(userEmail) {
 		});
 
 	return response.json();
+}
+
+// Check if the user exist, publicly available
+async function userExist(userEmail) {
+	let response = await fetch(APIURL + "/login?email=" + userEmail, {
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
+		.catch(error => {
+			console.error('Erreur:', error);
+		});
+
+	response = await response.json();
+	return response.userExist;
 }

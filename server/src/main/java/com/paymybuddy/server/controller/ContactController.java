@@ -3,7 +3,6 @@ package com.paymybuddy.server.controller;
 import com.paymybuddy.server.model.Contact;
 import com.paymybuddy.server.model.ContactId;
 import com.paymybuddy.server.service.IContactService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.tinylog.Logger;
 
@@ -12,13 +11,7 @@ import java.security.Principal;
 @RestController
 public class ContactController
 {
-	@Autowired
 	IContactService contactService;
-
-	public ContactController()
-	{
-
-	}
 
 	public ContactController(IContactService contactService)
 	{

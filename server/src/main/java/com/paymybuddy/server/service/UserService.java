@@ -2,8 +2,6 @@ package com.paymybuddy.server.service;
 
 import com.paymybuddy.server.model.User;
 import com.paymybuddy.server.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.tinylog.Logger;
 
@@ -12,13 +10,7 @@ import java.util.Optional;
 @Service
 public class UserService implements IUserService
 {
-	@Autowired
 	UserRepository userRepository;
-
-	public UserService()
-	{
-
-	}
 
 	public UserService(UserRepository userRepository)
 	{

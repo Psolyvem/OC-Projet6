@@ -3,8 +3,8 @@ package com.paymybuddy.server.service;
 import com.paymybuddy.server.model.Transaction;
 import com.paymybuddy.server.model.User;
 import com.paymybuddy.server.repository.TransactionRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.tinylog.Logger;
 
 import java.util.Optional;
@@ -12,14 +12,8 @@ import java.util.Optional;
 @Service
 public class TransactionService implements ITransactionService
 {
-	@Autowired
 	TransactionRepository transactionRepository;
-	@Autowired
 	IUserService userService;
-
-	public TransactionService()
-	{
-	}
 
 	public TransactionService(TransactionRepository transactionRepository, IUserService userService)
 	{
@@ -47,6 +41,7 @@ public class TransactionService implements ITransactionService
 	}
 
 	@Override
+	@Transactional
 	public void createTransaction(Transaction transaction)
 	{
 		if (transaction.getAmount() <= transaction.getSender().getSolde())

@@ -2,20 +2,12 @@ package com.paymybuddy.server.service;
 
 import com.paymybuddy.server.model.Contact;
 import com.paymybuddy.server.repository.ContactRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.tinylog.Logger;
 
 @Service
 public class ContactService implements IContactService
 {
-	@Autowired
 	ContactRepository contactRepository;
-
-	public ContactService()
-	{
-
-	}
 
 	public ContactService(ContactRepository contactRepository)
 	{
