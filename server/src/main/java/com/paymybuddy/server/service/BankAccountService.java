@@ -2,7 +2,6 @@ package com.paymybuddy.server.service;
 
 import com.paymybuddy.server.model.BankAccount;
 import com.paymybuddy.server.repository.BankAccountRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -10,13 +9,7 @@ import java.util.Optional;
 @Service
 public class BankAccountService implements IBankAccountService
 {
-	@Autowired
 	BankAccountRepository bankAccountRepository;
-
-	public BankAccountService()
-	{
-
-	}
 
 	public BankAccountService(BankAccountRepository bankAccountRepository)
 	{
